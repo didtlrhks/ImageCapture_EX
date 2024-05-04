@@ -1,20 +1,18 @@
-//
-//  ContentView.swift
-//  ImageCapture_Ex
-//
-//  Created by 양시관 on 5/3/24.
-//
 
 import SwiftUI
 
+
+
 struct ContentView: View {
+     var exampleView = ExampleView()
+    
     var body: some View {
         VStack {
-            ExampleView()
+            exampleView
                 .padding()
             
             Button("Share Snapshot") {
-                let image = ExampleView().snapshot()
+                let image = exampleView.snapshot()
                 shareImage(image)
             }
             .padding()
@@ -27,22 +25,22 @@ struct ContentView: View {
 
 
 
-
 extension View {
     func snapshot() -> UIImage {
         let controller = UIHostingController(rootView: self)
         let view = controller.view
-        
+
         let targetSize = controller.view.intrinsicContentSize
         view?.bounds = CGRect(origin: .zero, size: targetSize)
         view?.backgroundColor = .clear
-        
+
         let renderer = UIGraphicsImageRenderer(size: targetSize)
         return renderer.image { _ in
-            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true) // 변경된 부분
         }
     }
 }
+
 
 
 func shareImage(_ image: UIImage) {
@@ -61,18 +59,27 @@ func shareImage(_ image: UIImage) {
 
 
 struct ExampleView: View {
+    @State private var inputText = ""
+    
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.blue)
-                .padding()
-            Text("Hello, World!")
-                .font(.title)
-                .foregroundColor(.primary)
-        }
-        .padding()
-        .background(Color.gray.opacity(0.2))
-        .cornerRadius(10)
-    }
-}
+           VStack {
+               Image(systemName: "globe")
+                   .imageScale(.large)
+                   .foregroundColor(.blue)
+                   .padding()
+
+               Text("Hello, World!")
+                   .font(.title)
+                   .foregroundColor(.primary)
+
+               TextField("Enter something...", text: $inputText)  // 텍스트 필드 추가
+                   .textFieldStyle(RoundedBorderTextFieldStyle())  // 텍스트 필드 스타일 지정
+                   .padding()
+
+           }
+           .padding()
+           .background(Color.gray.opacity(0.2))
+           .cornerRadius(10)
+       }
+   }
