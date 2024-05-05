@@ -43,7 +43,7 @@ extension View {
 
 
 
-func shareImage(_ image: UIImage) {
+func shareImage(_ image: UIImage) { // 이미지 공유부분 
     guard let window = UIApplication.shared.windows.first else { return }
     let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
     
