@@ -40,10 +40,10 @@ extension View {
         }
     }
 }
+//캡쳐기능 추가하기
 
 
-
-func shareImage(_ image: UIImage) { // 이미지 공유부분 
+func shareImage(_ image: UIImage) { // 이미지 공유부분
     guard let window = UIApplication.shared.windows.first else { return }
     let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
     
